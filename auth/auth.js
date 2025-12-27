@@ -1,5 +1,10 @@
 /* ================= API CONFIG ================= */
-const API_BASE = "http://localhost:5000/api/auth";
+const API_BASE =
+  location.hostname === "localhost"
+    ? "http://localhost:5000/api/auth"
+    : "https://cyberfiction-backend.onrender.com/api/auth";
+
+
 
 
 /* ================= CANVAS BOY ================= */

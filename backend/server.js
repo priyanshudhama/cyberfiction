@@ -5,6 +5,8 @@ const JWT_SECRET = "cyberfiction_super_secret_key";
 
 const express = require("express");
 const cors = require("cors");
+app.use(cors());
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;

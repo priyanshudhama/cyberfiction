@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CYBERFICTION — Entry</title>
+  <link rel="stylesheet" href="auth.css">
+</head>
+
+<body class="intro">
+
+  <!-- CINEMATIC BACKGROUND -->
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- INTRO TEXT -->
+  <div class="intro-center">
+    <h1>CYBERFICTION</h1>
+    <p>Identity accepted</p>
+  </div>
+
+  <!-- BOY SILHOUETTE + AMBIENCE -->
+  <script src="auth.js"></script>
+
+  <!-- 🚪 INTRO EXIT LOGIC -->
+  <script>
+    /**
+     * Intro should ONLY play if user just logged in / signed up
+     * auth.js must set: sessionStorage.setItem("playIntro", "true")
+     */
+
+    const shouldPlayIntro = sessionStorage.getItem("playIntro");
+
+    if (!shouldPlayIntro) {
+      // ❌ Intro accessed directly → skip
+      window.location.href = "../index.html";
+    } else {
+      // ✅ Play intro once
+      setTimeout(() => {
+        sessionStorage.removeItem("playIntro"); // prevent replay
+        window.location.href = "../index.html";
+      }, 3000); // match your cinematic duration
+    }
+  </script>
+
+</body>
+</html>

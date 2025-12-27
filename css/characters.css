@@ -1,0 +1,55 @@
+/* ===== CHARACTER MOOD LAYERS ===== */
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: transparent;
+}
+
+/* Hero */
+.hero::before {
+  background: transparent(
+    circle at center,
+    rgba(20,20,20,0.5),
+    rgba(0,0,0,0.95)
+  );
+}
+
+/* Archive depth */
+.page:nth-child(3)::before {
+  background: transparent(
+    to bottom,
+    rgba(5,5,5,0.5),
+    rgba(0,0,0,0.95)
+  );
+}
+
+.page:nth-child(4)::before {
+  background: transparent(
+    circle at 60% 40%,
+    rgba(18,18,18,0.45),
+    rgba(0,0,0,0.95)
+  );
+}
+
+.page:nth-child(5)::before {
+  background: transparent(
+    to bottom,
+    rgba(10,10,10,0.45),
+    rgba(0,0,0,0.95)
+  );
+}
+
+.page.end::before {
+  background: transparent(
+    circle at center,
+    rgba(25,25,25,0.4),
+    rgba(0,0,0,0.98)
+  );
+}
+
+/* Cursor intent */
+#canvas-stage {
+  cursor: crosshair;
+}

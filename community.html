@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CyberFiction | Community</title>
+
+  <link rel="stylesheet" href="css/global.css">
+
+  <style>
+    /* ================= COMMUNITY PAGE ================= */
+
+    main.community {
+      padding: 120px 10%;
+      min-height: 100vh;
+    }
+
+    .community-hero {
+      max-width: 720px;
+      margin-bottom: 5rem;
+      perspective: 1000px;
+    }
+
+    .community-hero h1 {
+      font-size: clamp(3rem, 6vw, 5rem);
+      margin-bottom: 1rem;
+      transform: translateZ(40px);
+    }
+
+    .community-hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      max-width: 600px;
+    }
+
+    /* ================= EVENTS GRID ================= */
+
+    .events {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      perspective: 1200px;
+    }
+
+    .event-card {
+      padding: 2.6rem 2.2rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      transition:
+        transform .5s cubic-bezier(.2,.8,.2,1),
+        box-shadow .5s ease,
+        background .4s ease;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* glow layer */
+    .event-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at 30% 20%,
+        rgba(255,255,255,0.08),
+        transparent 60%
+      );
+      opacity: 0;
+      transition: opacity .4s ease;
+      pointer-events: none;
+    }
+
+    .event-card:hover::before {
+      opacity: 1;
+    }
+
+    .event-card:hover {
+      transform: translateY(-14px) rotateX(6deg) rotateY(-6deg);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.65);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .event-card span {
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+    }
+
+    .event-card h3 {
+      margin-top: .6rem;
+      font-size: 1.5rem;
+      transform: translateZ(30px);
+    }
+
+    .event-card p {
+      margin-top: .9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .join-btn {
+      margin-top: 1.4rem;
+      display: inline-block;
+      padding: .55rem 1.4rem;
+      border-radius: 50px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: .8rem;
+      letter-spacing: 1px;
+      transition: all .35s ease;
+      transform: translateZ(40px);
+    }
+
+    .join-btn:hover {
+      background: var(--accent);
+      color: #000;
+      box-shadow: 0 0 20px rgba(255,255,255,0.25);
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 768px) {
+      main.community {
+        padding: 100px 6%;
+      }
+    }
+    /* ===== COMMUNITY BOY BACKGROUND ===== */
+#canvas-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#canvas-stage canvas {
+  width: 100%;
+  height: 100%;
+  opacity: 0.22;
+  filter: blur(0.2px) contrast(0.95);
+}
+
+/* ensure content stays above */
+.page.community,
+.nav {
+  position: relative;
+  z-index: 2;
+}
+
+  </style>
+</head>
+
+<body data-page="community">
+
+
+<header id="nav">
+  <h3><b>CYBER</b>FICTION*</h3>
+
+  <nav class="links">
+    <a href="index.html">Home</a>
+    <a href="universe.html">Universe</a>
+    <a href="characters.html">Characters</a>
+    <a href="experience.html">Experience</a>
+    <a href="labs.html">Labs</a>
+    <a href="marketplace.html">Marketplace</a>
+    <a href="community.html">Community</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <!-- ✅ IDENTITY LAYER INSIDE NAV -->
+  <div id="identity-layer">
+    <div class="identity-core">
+      <span id="identityName" class="identity-glitch"></span>
+      <span class="identity-status">ONLINE</span>
+    </div>
+
+    <div class="identity-panel">
+      <div class="identity-row">
+        <span>MODE</span>
+        <span id="identityMode"></span>
+      </div>
+      <div class="identity-row">
+        <span>UPTIME</span>
+        <span id="identityTime"></span>
+      </div>
+      <div class="identity-row subtle">
+        <a href="#" id="logoutBtn">LOGOUT</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+<!-- COMMUNITY BACKGROUND BOY -->
+<div id="canvas-stage">
+  <canvas id="communityCanvas"></canvas>
+</div>
+
+
+<main class="page community">
+
+  <!-- HERO -->
+  <section class="community-hero">
+    <h1>Community</h1>
+    <p>
+      Events, gatherings, and collaborative creation inside Cyberfiction.  
+      A living network shaped by shared imagination.
+    </p>
+  </section>
+
+  <!-- EVENTS -->
+  <section class="events">
+
+    <div class="event-card">
+      <span>VIRTUAL EVENT</span>
+      <h3>Metaverse Meetup</h3>
+      <p>
+        A live virtual gathering exploring digital identity,
+        presence, and collective storytelling.
+      </p>
+      <a class="join-btn">Join Event</a>
+    </div>
+
+    <div class="event-card">
+      <span>CREATIVE JAM</span>
+      <h3>Shader Jam</h3>
+      <p>
+        An experimental session where creators collaborate
+        on generative visuals and motion.
+      </p>
+      <a class="join-btn">Participate</a>
+    </div>
+
+    <div class="event-card">
+      <span>WORKSHOP</span>
+      <h3>Future Interfaces</h3>
+      <p>
+        Designing interactions beyond screens,
+        exploring spatial and immersive UX.
+      </p>
+      <a class="join-btn">Register</a>
+    </div>
+
+  </section>
+
+</main>
+<div id="post-fx"></div>
+<script src="js/main.js"></script>
+<div id="page-transition"></div>
+<!-- LOGOUT OVERLAY -->
+<div id="logoutOverlay">
+  <div class="logout-panel">
+    <h2>Exit Cyberfiction?</h2>
+    <p>Your current presence will dissolve.<br>Identity can be redefined.</p>
+
+    <div class="logout-actions">
+      <button id="cancelLogout">Stay</button>
+      <button id="confirmLogout">Exit</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

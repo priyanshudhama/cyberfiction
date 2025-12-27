@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CYBERFICTION — Experience</title>
+
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/experience.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+</head>
+
+<body data-page="experience">
+
+
+<header id="nav">
+  <h3><b>CYBER</b>FICTION*</h3>
+
+  <nav class="links">
+    <a href="index.html">Home</a>
+    <a href="universe.html">Universe</a>
+    <a href="characters.html">Characters</a>
+    <a href="experience.html">Experience</a>
+    <a href="labs.html">Labs</a>
+    <a href="marketplace.html">Marketplace</a>
+    <a href="community.html">Community</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <!-- ✅ IDENTITY LAYER INSIDE NAV -->
+  <div id="identity-layer">
+    <div class="identity-core">
+      <span id="identityName" class="identity-glitch"></span>
+      <span class="identity-status">ONLINE</span>
+    </div>
+
+    <div class="identity-panel">
+      <div class="identity-row">
+        <span>MODE</span>
+        <span id="identityMode"></span>
+      </div>
+      <div class="identity-row">
+        <span>UPTIME</span>
+        <span id="identityTime"></span>
+      </div>
+      <div class="identity-row subtle">
+        <a href="#" id="logoutBtn">LOGOUT</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+<main id="main" data-scroll-container>
+
+  <!-- FIXED CANVAS -->
+  <div id="canvas-stage">
+    <canvas id="mainCanvas"></canvas>
+  </div>
+
+  <!-- EXPERIENCE SECTIONS -->
+  <section class="page hero">
+    <div class="text">
+      <h1>EXPERIENCE</h1>
+      <p>
+        This is not a story you read.  
+        It is a system you feel.
+      </p>
+    </div>
+  </section>
+
+  <section class="page beat">
+    <div class="text">
+      <h2>ACCELERATION</h2>
+      <p>
+        Time compresses.  
+        Motion becomes intention.
+      </p>
+    </div>
+  </section>
+
+  <section class="page beat">
+    <div class="text">
+      <h2>INTERRUPTION</h2>
+      <p>
+        Systems break.  
+        Identity destabilizes.
+      </p>
+    </div>
+  </section>
+
+  <section class="page beat">
+    <div class="text">
+      <h2>TRANSITION</h2>
+      <p>
+        Between states, meaning emerges.
+      </p>
+    </div>
+  </section>
+
+  <section class="page beat">
+    <div class="text">
+      <h2>REINTEGRATION</h2>
+      <p>
+        Fragments recombine.
+      </p>
+    </div>
+  </section>
+
+  <section class="page end">
+    <div class="text">
+      <h1>RESET</h1>
+      <p>
+        The experience ends.  
+        The system remains.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>© 2025 CYBERFICTION — Interactive Experience</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+
+
+<div id="post-fx"></div>
+<script src="js/main.js"></script>
+<div id="page-transition"></div>
+<!-- LOGOUT OVERLAY -->
+<div id="logoutOverlay">
+  <div class="logout-panel">
+    <h2>Exit Cyberfiction?</h2>
+    <p>Your current presence will dissolve.<br>Identity can be redefined.</p>
+
+    <div class="logout-actions">
+      <button id="cancelLogout">Stay</button>
+      <button id="confirmLogout">Exit</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CYBERFICTION — About</title>
+
+  <!-- GLOBAL + ABOUT STYLES -->
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/about.css">
+</head>
+
+<body data-page="about">
+
+<!-- ================= NAVBAR ================= -->
+<header id="nav">
+  <h3><b>CYBER</b>FICTION*</h3>
+
+  <nav class="links">
+    <a href="index.html">Home</a>
+    <a href="universe.html">Universe</a>
+    <a href="characters.html">Characters</a>
+    <a href="experience.html">Experience</a>
+    <a href="labs.html">Labs</a>
+    <a href="marketplace.html">Marketplace</a>
+    <a href="community.html">Community</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <!-- ✅ IDENTITY LAYER INSIDE NAV -->
+  <div id="identity-layer">
+    <div class="identity-core">
+      <span id="identityName" class="identity-glitch"></span>
+      <span class="identity-status">ONLINE</span>
+    </div>
+
+    <div class="identity-panel">
+      <div class="identity-row">
+        <span>MODE</span>
+        <span id="identityMode"></span>
+      </div>
+      <div class="identity-row">
+        <span>UPTIME</span>
+        <span id="identityTime"></span>
+      </div>
+      <div class="identity-row subtle">
+        <a href="#" id="logoutBtn">LOGOUT</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<!-- ================= MAIN ================= -->
+<main id="main">
+
+  <!-- ===== FIXED CANVAS (GLOBAL ENGINE) ===== -->
+  <div id="canvas-stage">
+    <canvas id="mainCanvas"></canvas>
+  </div>
+
+  <!-- ================= SECTIONS ================= -->
+
+  <!-- HERO -->
+  <section class="page hero">
+    <div class="text">
+      <h1>ABOUT CYBERFICTION</h1>
+      <p>
+        Cyberfiction is a living digital narrative —  
+        an experiment in identity, motion, and storytelling  
+        beyond static interfaces.
+      </p>
+    </div>
+  </section>
+
+  <!-- CREATOR -->
+  <section class="page">
+    <div class="text">
+      <h2>THE CREATOR</h2>
+      <p>
+        I’m <strong>Priyanshu Dhama</strong> —  
+        a B.Tech Computer Science student, creative developer,  
+        and immersive web designer focused on interactive systems  
+        and cinematic digital experiences.
+      </p>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="page">
+    <div class="text">
+      <h2>EDUCATION</h2>
+      <p>
+        • B.Tech in Computer Science & Engineering<br>
+        • Strong foundation in DSA, DBMS, OS, CN<br>
+        • Focus on modern web systems and creative coding
+      </p>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="page">
+    <div class="text">
+      <h2>SKILLS & TOOLS</h2>
+      <p>
+        JavaScript • HTML • CSS • GSAP • Canvas • Three.js<br>
+        React • Node.js • SQL • Git • UI/UX Design<br>
+        Interactive Animation • Creative Development
+      </p>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="page">
+    <div class="text">
+      <h2>DESIGN PHILOSOPHY</h2>
+      <p>
+        Interfaces should feel alive.<br>
+        Motion should communicate meaning.<br>
+        Code is not just logic — it is expression.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="page end">
+    <div class="text contact">
+      <h1>CONTACT</h1>
+      <p>
+        📧 <a href="mailto:priyanshudhama@gmail.com">priyanshudhama@gmail.com</a><br><br>
+        💼 <a href="https://linkedin.com/in/priyanshu-dhama" target="_blank">linkedin.com/in/priyanshu-dhama</a><br><br>
+        🧑‍💻 <a href="https://github.com/priyanshudhama" target="_blank">github.com/priyanshudhama</a>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <p>© 2025 CYBERFICTION — Designed & Developed by Priyanshu Dhama</p>
+</footer>
+
+<!-- ================= POST FX ================= -->
+<div id="post-fx"></div>
+
+<!-- ================= ENGINE ================= -->
+<script src="js/main.js"></script>
+<div id="page-transition"></div>
+<!-- LOGOUT OVERLAY -->
+<div id="logoutOverlay">
+  <div class="logout-panel">
+    <h2>Exit Cyberfiction?</h2>
+    <p>Your presence will dissolve.<br>Identity can be redefined.</p>
+
+    <div class="logout-actions">
+      <button id="cancelLogout">Stay</button>
+      <button id="confirmLogout">Exit</button>
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+</html>

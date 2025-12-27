@@ -1,0 +1,68 @@
+/* ================= ABOUT – CINEMATIC THEME ================= */
+
+/* HERO */
+.hero {
+  background: transparent(
+    circle at center,
+    rgba(20, 20, 20, 0.6),
+    rgba(0, 0, 0, 0.95)
+  );
+}
+
+/* PAGE BACKGROUNDS */
+.page {
+  background: transparent(
+    to bottom,
+    rgba(6, 6, 6, 0.6),
+    rgba(0, 0, 0, 0.95)
+  );
+}
+
+/* TYPOGRAPHY */
+.text h1 {
+  letter-spacing: 2px;
+}
+
+.text h2 {
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.text p {
+  max-width: 560px;
+  color: #aaa;
+  line-height: 1.8;
+}
+
+/* CONTACT SECTION */
+.contact a {
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  padding-bottom: 2px;
+  transition: border-color 0.3s ease;
+}
+
+.contact a:hover {
+  border-color: #fff;
+}
+
+/* END SECTION */
+.page.end {
+  background: transparent(
+    circle at center,
+    rgba(30, 30, 30, 0.45),
+    rgba(0, 0, 0, 0.98)
+  );
+}
+
+/* ================= CINEMATIC OVERLAY TUNING ================= */
+/* Softer than home / experience so animation stays visible */
+#canvas-stage::after {
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0.12),
+    rgba(0, 0, 0, 0.78)
+  );
+}

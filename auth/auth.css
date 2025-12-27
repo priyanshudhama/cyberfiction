@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Gilroy, system-ui, sans-serif;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  height: 100vh;
+  overflow: hidden;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* AUTH SCREENS */
+.auth, .intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* LOGIN / SIGNUP CARD */
+.glass-card {
+  z-index: 2;
+  width: 360px;
+  padding: 40px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(20px);
+  border-radius: 14px;
+}
+
+.glass-card h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  letter-spacing: 2px;
+}
+
+.glass-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  background: rgba(0,0,0,0.4);
+  border: none;
+  color: #fff;
+}
+
+.glass-card button {
+  width: 100%;
+  padding: 12px;
+  background: #fff;
+  color: #000;
+  border: none;
+  cursor: pointer;
+}
+
+.switch {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 13px;
+}
+
+.switch a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* INTRO */
+.intro-center {
+  z-index: 2;
+  text-align: center;
+}
+
+.intro-center h1 {
+  font-size: 5rem;
+  letter-spacing: 4px;
+}
+.password-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrap input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 0.9rem;
+  opacity: 0.6;
+  user-select: none;
+}
+
+.toggle-password:hover {
+  opacity: 1;
+}
+/* PASSWORD STRENGTH */
+.password-strength {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  margin-top: 6px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.strength-bar {
+  height: 100%;
+  width: 0%;
+  background: red;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+.strength-text {
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  margin-top: 6px;
+  opacity: 0.7;
+}
+/* REMEMBER ME FIX */
+.remember-me {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 10px 0 18px;
+  font-size: 0.75rem;
+  color: #aaa;
+
+  justify-content: flex-start; /* 🔥 KEY FIX */
+}
+
+.remember-me input {
+  width: auto;
+  margin: 0;
+  accent-color: #fff;
+}
+

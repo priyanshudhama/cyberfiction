@@ -1,0 +1,62 @@
+.hero {
+  background: transparent(circle at center, rgba(20,20,20,0.6), rgba(0,0,0,0.95));
+}
+
+.market {
+  background: transparent(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.95));
+}
+
+.market-grid {
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.card {
+  background: rgba(15,15,15,0.8);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 18px;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+}
+
+.card h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.card p {
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+.card span {
+  display: block;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.card button {
+  background: linear-gradient(135deg, #fff, #aaa);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card button:hover {
+  background: linear-gradient(135deg, #fff, #fff);
+}

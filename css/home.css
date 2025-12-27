@@ -1,0 +1,25 @@
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: transparent;
+}
+
+/* Hero mood */
+.hero::before {
+  background: transparent(circle at center, rgba(20,20,20,0.5), rgba(0,0,0,0.7));
+}
+
+/* Section moods */
+.page:nth-child(3)::before {
+  background: transparent(120deg, rgba(17,17,17,0.4), rgba(0,0,0,0.6));
+}
+
+.page:nth-child(4)::before {
+  background: transparent(circle at 70% 30%, rgba(30,30,30,0.4), rgba(0,0,0,0.7));
+}
+
+.page.end::before {
+  background: transparent(circle at center, rgba(25,25,25,0.4), rgba(0,0,0,0.8));
+}

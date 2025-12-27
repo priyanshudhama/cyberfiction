@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CYBERFICTION — Labs</title>
+
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/labs.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+</head>
+
+<body data-page="labs">
+
+<header id="nav">
+  <h3><b>CYBER</b>FICTION*</h3>
+
+  <nav class="links">
+    <a href="index.html">Home</a>
+    <a href="universe.html">Universe</a>
+    <a href="characters.html">Characters</a>
+    <a href="experience.html">Experience</a>
+    <a href="labs.html">Labs</a>
+    <a href="marketplace.html">Marketplace</a>
+    <a href="community.html">Community</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <!-- ✅ IDENTITY LAYER INSIDE NAV -->
+  <div id="identity-layer">
+    <div class="identity-core">
+      <span id="identityName" class="identity-glitch"></span>
+      <span class="identity-status">ONLINE</span>
+    </div>
+
+    <div class="identity-panel">
+      <div class="identity-row">
+        <span>MODE</span>
+        <span id="identityMode"></span>
+      </div>
+      <div class="identity-row">
+        <span>UPTIME</span>
+        <span id="identityTime"></span>
+      </div>
+      <div class="identity-row subtle">
+        <a href="#" id="logoutBtn">LOGOUT</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+<main id="main" data-scroll-container>
+
+  <!-- FIXED CANVAS -->
+  <div id="canvas-stage">
+    <canvas id="mainCanvas"></canvas>
+  </div>
+
+  <!-- LAB SECTIONS -->
+  <section class="page hero">
+    <div class="text">
+      <h1>LABS</h1>
+      <p>
+        Experimental systems.  
+        Unstable ideas.  
+        Controlled failure.
+      </p>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="text">
+      <h2>FRAME DISTORTION</h2>
+      <p>
+        Temporal instability causes frames to desynchronize.
+        Motion is no longer linear.
+      </p>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="text">
+      <h2>IDENTITY GLITCH</h2>
+      <p>
+        Characters fracture.
+        Identity becomes probabilistic.
+      </p>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="text">
+      <h2>ROTATIONAL ERROR</h2>
+      <p>
+        Orientation fails.
+        Perspective collapses into abstraction.
+      </p>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="text">
+      <h2>DATA NOISE</h2>
+      <p>
+        Information bleeds.
+        Meaning is reconstructed by the observer.
+      </p>
+    </div>
+  </section>
+
+  <section class="page end">
+    <div class="text">
+      <h1>EXPERIMENT FAILED</h1>
+      <p>
+        Failure is logged.  
+        Knowledge is retained.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>© 2025 CYBERFICTION — Research & Development</p>
+</footer>
+
+<div id="post-fx"></div>
+<script src="js/main.js"></script>
+<div id="page-transition"></div>
+<!-- LOGOUT OVERLAY -->
+<div id="logoutOverlay">
+  <div class="logout-panel">
+    <h2>Exit Cyberfiction?</h2>
+    <p>Your current presence will dissolve.<br>Identity can be redefined.</p>
+
+    <div class="logout-actions">
+      <button id="cancelLogout">Stay</button>
+      <button id="confirmLogout">Exit</button>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

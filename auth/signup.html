@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CYBERFICTION — Signup</title>
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body class="auth">
+
+<canvas id="bgCanvas"></canvas>
+
+<form class="glass-card" id="signupForm">
+  <h2>SIGN UP</h2>
+
+  <!-- ✅ FIXED: IDs + names added -->
+  <input
+    type="text"
+    id="name"
+    name="name"
+    placeholder="Username"
+    required
+  >
+
+  <input
+    type="email"
+    id="email"
+    name="email"
+    placeholder="Email"
+    required
+  >
+
+<!-- PASSWORD WITH STRENGTH -->
+<div class="password-wrap">
+  <input
+    type="password"
+    id="password"
+    placeholder="Password"
+    required
+  >
+  <span class="toggle-password" data-target="password">👁</span>
+</div>
+
+<!-- PASSWORD STRENGTH BAR -->
+<div class="password-strength">
+  <div class="strength-bar" id="strengthBar"></div>
+</div>
+<p class="strength-text" id="strengthText">Password strength</p>
+
+
+  <button type="submit">CREATE IDENTITY</button>
+
+  <p class="switch">
+    Already exist? <a href="login.html">Login</a>
+  </p>
+</form>
+
+<script src="auth.js"></script>
+</body>
+</html>

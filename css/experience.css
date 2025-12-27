@@ -1,0 +1,51 @@
+/* ===== EXPERIENCE MOOD LAYERS (SAFE) ===== */
+
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: transparent;
+}
+
+/* HERO */
+.hero::before {
+  background: radial-gradient(
+    circle at center,
+    rgba(30,30,30,0.7),
+    rgba(0,0,0,0.95)
+  );
+}
+
+/* BEAT SECTIONS */
+.page.beat::before {
+  background: transparent(
+    to bottom,
+    rgba(0,0,0,0.55),
+    rgba(0,0,0,0.95)
+  );
+}
+
+/* END */
+.page.end::before {
+  background: transparent(
+    circle at center,
+    rgba(40,40,40,0.4),
+    rgba(0,0,0,0.98)
+  );
+}
+
+/* TEXT */
+.text h2 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: 2px;
+}
+
+/* EXTRA CONTRAST (SAFE) */
+#canvas-stage::after {
+  background: radial-gradient(
+    circle at center,
+    rgba(0,0,0,0.1),
+    rgba(0,0,0,0.85)
+  );
+}

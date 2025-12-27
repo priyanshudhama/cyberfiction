@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CYBERFICTION — The Universe</title>
+
+  <!-- Global + Universe Styles -->
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/universe.css">
+
+  <!-- Locomotive Scroll -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+</head>
+
+<body data-page="universe">
+
+
+<!-- ================= NAVBAR ================= -->
+<header id="nav">
+  <h3><b>CYBER</b>FICTION*</h3>
+
+  <nav class="links">
+    <a href="index.html">Home</a>
+    <a href="universe.html">Universe</a>
+    <a href="characters.html">Characters</a>
+    <a href="experience.html">Experience</a>
+    <a href="labs.html">Labs</a>
+    <a href="marketplace.html">Marketplace</a>
+    <a href="community.html">Community</a>
+    <a href="about.html">About</a>
+  </nav>
+
+  <!-- ✅ IDENTITY LAYER INSIDE NAV -->
+  <div id="identity-layer">
+    <div class="identity-core">
+      <span id="identityName" class="identity-glitch"></span>
+      <span class="identity-status">ONLINE</span>
+    </div>
+
+    <div class="identity-panel">
+      <div class="identity-row">
+        <span>MODE</span>
+        <span id="identityMode"></span>
+      </div>
+      <div class="identity-row">
+        <span>UPTIME</span>
+        <span id="identityTime"></span>
+      </div>
+      <div class="identity-row subtle">
+        <a href="#" id="logoutBtn">LOGOUT</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+<!-- ================= MAIN SCROLL ================= -->
+<main id="main" data-scroll-container>
+
+  <!-- ===== FIXED CANVAS ===== -->
+  <div id="canvas-stage">
+    <canvas id="mainCanvas"></canvas>
+  </div>
+
+  <!-- ================= SECTIONS ================= -->
+
+  <section class="page hero">
+    <div class="text">
+      <h1>THE UNIVERSE</h1>
+      <p>
+        Cyberfiction is not a single world.
+        It is a network of realities layered through time,
+        memory, and collective imagination.
+      </p>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="text">
+      <h1>ORIGINS</h1>
+      <p>
+        The universe emerged from fragmented identities —
+        stories left unfinished, realities left unexplored.
+        Each fragment became a foundation.
+      </p>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="text">
+      <h1>LAYERED REALITIES</h1>
+      <p>
+        Multiple layers coexist.
+        Physical, digital, symbolic.
+        None are dominant — all are valid.
+      </p>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="text">
+      <h1>TIME FLOW</h1>
+      <p>
+        Time is nonlinear here.
+        The past reshapes itself through interaction,
+        and the future is constantly rewritten.
+      </p>
+    </div>
+  </section>
+
+  <section class="page">
+    <div class="text">
+      <h1>COLLECTIVE MEMORY</h1>
+      <p>
+        Every action leaves an imprint.
+        The universe remembers,
+        even when individuals forget.
+      </p>
+    </div>
+  </section>
+
+  <section class="page end">
+    <div class="text">
+      <h1>ENTER DEEPER</h1>
+      <p>
+        This is only the surface layer.
+        Deeper systems await exploration.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <p>© 2025 CYBERFICTION — The Living Digital Universe</p>
+</footer>
+
+<!-- ================= LIBRARIES ================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+
+<!-- ================= UNIVERSE SCRIPT ================= -->
+
+<div id="post-fx"></div>
+<script src="js/main.js"></script>
+<div id="page-transition"></div>
+
+
+</body>
+</html>

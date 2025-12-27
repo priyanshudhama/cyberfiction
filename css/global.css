@@ -1,0 +1,330 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Gilroy, system-ui, sans-serif;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* NAV */
+#nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.4);
+}
+
+#nav .links a {
+  color: #aaa;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+#nav .links a:hover {
+  color: #fff;
+}
+
+/* CANVAS */
+#canvas-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.page {
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+  padding-top: 120px;
+  display: flex;
+  align-items: center;
+}
+
+.text {
+  margin-left: 10%;
+  max-width: 520px;
+}
+body[data-page="home"] .page.hero .text h1,
+body[data-page="home"] .page.hero .text p {
+  opacity: 0;
+}
+
+/* ================= PAGE TRANSITION ================= */
+
+#page-transition {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.8s ease;
+}
+
+#page-transition.active {
+  opacity: 1;
+  pointer-events: all;
+}
+/* ================= LOGOUT OVERLAY ================= */
+
+#logoutOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(12px);
+  z-index: 99999; /* 🔥 VERY IMPORTANT */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+#logoutOverlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.logout-panel {
+  background: rgba(15,15,15,0.9);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 3rem 3.5rem;
+  text-align: center;
+}
+
+
+
+.logout-panel h2 {
+  font-size: 2rem;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+
+.logout-panel p {
+  color: #aaa;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.logout-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+}
+
+.logout-actions button {
+  padding: 0.6rem 1.8rem;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-actions button:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* Subtle entrance */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.identity-glitch {
+  position: relative;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+
+.identity-glitch::before,
+.identity-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.identity-glitch::before {
+  color: #0ff;
+  transform: translateX(-1px);
+}
+
+.identity-glitch::after {
+  color: #f0f;
+  transform: translateX(1px);
+}
+
+.identity-glitch:hover::before,
+.identity-glitch:hover::after {
+  opacity: 0.6;
+  animation: glitch 0.6s infinite;
+}
+
+@keyframes glitch {
+  0% { clip-path: inset(10% 0 85% 0); }
+  50% { clip-path: inset(40% 0 40% 0); }
+  100% { clip-path: inset(85% 0 10% 0); }
+}
+/* ================= IDENTITY LAYER ================= */
+
+#identity-layer {
+  position: relative; /* ✅ now controlled by nav */
+  z-index: 120;
+  text-align: right;
+  user-select: none;
+}
+#nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#identity-layer {
+  margin-left: 30px;
+}
+
+
+.identity-core {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  cursor: pointer;
+}
+
+#identity-layer .identity-glitch {
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  opacity: 0.85;
+}
+
+.identity-status {
+  font-size: 0.55rem;
+  color: #0ff;
+  opacity: 0.6;
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+
+/* PANEL (HIDDEN BY DEFAULT) */
+.identity-panel {
+  margin-top: 12px;
+  padding: 14px 16px;
+  background: rgba(10,10,10,0.65);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.6rem;
+  letter-spacing: 1.5px;
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+  transition: all 0.4s ease;
+}
+
+/* SHOW PANEL */
+#identity-layer.active .identity-panel {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.identity-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+
+.identity-row.subtle {
+  opacity: 0.5;
+}
+
+/* OPTIONAL: subtle breathing */
+@keyframes identityPulse {
+  0%,100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+
+#identity-layer .identity-glitch {
+  animation: identityPulse 6s ease-in-out infinite;
+}
+#identity-layer .identity-glitch {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-shadow: 0 0 6px rgba(0,255,255,0.35);
+}
+
+#nav .links {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+#identity-layer {
+  display: flex;
+  align-items: center;
+  margin-left: 24px;
+  flex-shrink: 0;          /* 🔥 critical */
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.identity-core {
+  opacity: 1;
+  visibility: visible;
+}
+#nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* prevent links from pushing identity */
+#nav .links {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  max-width: 70%;
+}
+#identity-layer .identity-glitch {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-shadow: 0 0 6px rgba(0,255,255,0.35);
+}
+
+
+

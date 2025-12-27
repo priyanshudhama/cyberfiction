@@ -1,0 +1,57 @@
+.hero {
+  background: transparent(circle at center, rgba(15,15,15,0.5), rgba(0,0,0,0.95));
+}
+
+.page:nth-child(3) {
+  background: transparent(120deg, rgba(10,10,10,0.5), rgba(0,0,0,0.95));
+}
+
+.page:nth-child(4) {
+  background: transparent(circle at 30% 60%, rgba(20,20,20,0.5), rgba(0,0,0,0.95));
+}
+
+.page:nth-child(5) {
+  background: transparent(to bottom, rgba(8,8,8,0.5), rgba(0,0,0,0.95));
+}
+
+.page.end {
+  background: transparent(circle at center, rgba(18,18,18,0.5), rgba(0,0,0,0.98));
+}
+
+.text h1 {
+  letter-spacing: 1px;
+}
+/* ================= FOG OVERLAY ================= */
+#canvas-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    transparent(
+      circle at 50% 40%,
+      rgba(255,255,255,0.04),
+      rgba(0,0,0,0.65)
+    ),
+    transparent(
+      to bottom,
+      rgba(255,255,255,0.03),
+      rgba(0,0,0,0.85)
+    );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 2;
+  animation: fogMove 30s linear infinite;
+}
+
+@keyframes fogMove {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+#canvas-stage canvas {
+  filter: contrast(0.98) brightness(0.98);
+}
+#canvas-stage::before {
+  z-index: 1; /* NOT 2 */
+}
+

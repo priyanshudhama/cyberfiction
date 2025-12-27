@@ -20,7 +20,9 @@ function readUsers() {
   if (!fs.existsSync(USERS_FILE)) {
     fs.writeFileSync(USERS_FILE, JSON.stringify([]));
   }
-  return JSON.parse(fs.readFileSync(USERS_FILE));
+
+  const data = fs.readFileSync(USERS_FILE, "utf-8");
+  return JSON.parse(data);
 }
 
 function writeUsers(users) {
@@ -41,10 +43,10 @@ app.post("/api/auth/signup", async (req, res) => {
   }
 
   const users = readUsers();
-  const exists = users.find(u => u.email === email);
 
+  const exists = users.find(u => u.email === email);
   if (exists) {
-    return res.status(409).json({ message: "User already exists" });
+    return res.status(400).json({ message: "User already exists" });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -59,15 +61,24 @@ app.post("/api/auth/signup", async (req, res) => {
   users.push(newUser);
   writeUsers(users);
 
-  res.status(201).json({
+  res.json({
     message: "Signup successful",
-    user: { id: newUser.id, username: name, email }
+    user: {
+      id: newUser.id,
+      username: newUser.username,
+      email: newUser.email
+    }
   });
 });
+
 
 /* ===== LOGIN ===== */
 app.post("/api/auth/login", async (req, res) => {
   const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "Missing credentials" });
+  }
 
   const users = readUsers();
   const user = users.find(u => u.email === email);
@@ -82,7 +93,7 @@ app.post("/api/auth/login", async (req, res) => {
   }
 
   res.json({
-    message: "Login successful",
+    message: "Login success",
     user: {
       id: user.id,
       username: user.username,
@@ -90,6 +101,7 @@ app.post("/api/auth/login", async (req, res) => {
     }
   });
 });
+
 
 /* ===== START SERVER ===== */
 app.listen(PORT, () => {

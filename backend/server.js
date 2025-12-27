@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
+
 
 const app = express(); // ✅ app MUST be created first
 const PORT = process.env.PORT || 5000;

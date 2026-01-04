@@ -1,9 +1,12 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
-const fs = require("fs");
-const path = require("path");
 const bcrypt = require("bcryptjs");
+const fs = require("fs");
+const path = require("path"); // 
+
+
 
 /* =======================
    APP SETUP
@@ -21,16 +24,11 @@ let mongoConnected = false;
 
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => {
-    mongoConnected = true;
-    console.log("MongoDB connected");
-  })
-  .catch(err => {
-    console.warn("MongoDB not connected, using JSON fallback");
-  });
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error("Mongo error:", err.message));
 
 /* =======================
-   MONGODB USER MODEL
+   USER MODEL (SINGLE SOURCE)
 ======================= */
 const UserSchema = new mongoose.Schema({
   username: String,
@@ -38,7 +36,8 @@ const UserSchema = new mongoose.Schema({
   password: String
 });
 
-const User = mongoose.models.User || mongoose.model("User", UserSchema);
+const User =
+  mongoose.models.User || mongoose.model("User", UserSchema);
 
 /* =======================
    JSON FILE STORAGE (FALLBACK)
@@ -68,17 +67,19 @@ app.get("/api/auth/test", (req, res) => {
    SIGNUP
 ======================= */
 app.post("/api/auth/signup", async (req, res) => {
-  const { name, email, password } = req.body;
-  if (!name || !email || !password)
-    return res.status(400).json({ message: "All fields required" });
+  try {
+    const { name, email, password } = req.body;
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "All fields required" });
+    }
 
-  /* ---- USE MONGODB IF AVAILABLE ---- */
-  if (mongoConnected) {
-    const exists = await User.findOne({ email });
-    if (exists)
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
       username: name,
@@ -86,7 +87,7 @@ app.post("/api/auth/signup", async (req, res) => {
       password: hashedPassword
     });
 
-    return res.json({
+    res.json({
       message: "Signup successful",
       user: {
         id: user._id,
@@ -94,52 +95,34 @@ app.post("/api/auth/signup", async (req, res) => {
         email: user.email
       }
     });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
   }
-
-  /* ---- JSON FALLBACK ---- */
-  const users = readUsers();
-  if (users.find(u => u.email === email))
-    return res.status(400).json({ message: "User already exists" });
-
-  const newUser = {
-    id: Date.now(),
-    username: name,
-    email,
-    password: hashedPassword
-  };
-
-  users.push(newUser);
-  writeUsers(users);
-
-  res.json({
-    message: "Signup successful",
-    user: {
-      id: newUser.id,
-      username: newUser.username,
-      email: newUser.email
-    }
-  });
 });
 
 /* =======================
    LOGIN
 ======================= */
 app.post("/api/auth/login", async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password)
-    return res.status(400).json({ message: "Missing credentials" });
+  try {
+    const { email, password } = req.body;
 
-  /* ---- USE MONGODB IF AVAILABLE ---- */
-  if (mongoConnected) {
+    if (!email || !password) {
+      return res.status(400).json({ message: "Missing credentials" });
+    }
+
     const user = await User.findOne({ email });
-    if (!user)
+    if (!user) {
       return res.status(401).json({ message: "Invalid credentials" });
+    }
 
     const match = await bcrypt.compare(password, user.password);
-    if (!match)
+    if (!match) {
       return res.status(401).json({ message: "Invalid credentials" });
+    }
 
-    return res.json({
+    res.json({
       message: "Login success",
       user: {
         id: user._id,
@@ -147,26 +130,10 @@ app.post("/api/auth/login", async (req, res) => {
         email: user.email
       }
     });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
   }
-
-  /* ---- JSON FALLBACK ---- */
-  const users = readUsers();
-  const user = users.find(u => u.email === email);
-  if (!user)
-    return res.status(401).json({ message: "Invalid credentials" });
-
-  const match = await bcrypt.compare(password, user.password);
-  if (!match)
-    return res.status(401).json({ message: "Invalid credentials" });
-
-  res.json({
-    message: "Login success",
-    user: {
-      id: user.id,
-      username: user.username,
-      email: user.email
-    }
-  });
 });
 
 /* =======================

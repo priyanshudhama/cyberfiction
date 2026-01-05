@@ -56,8 +56,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+/* ===== TOUCH SUPPORT (MOBILE) ===== */
+let touchX = 0.5;
+let touchY = 0.5;
 
+window.addEventListener("touchmove", e => {
+  if (!e.touches[0]) return;
+  touchX = e.touches[0].clientX / window.innerWidth;
+  touchY = e.touches[0].clientY / window.innerHeight;
 
+  // mobile drives mouse vars
+  mouseX = touchX;
+  mouseY = touchY;
+}, { passive: true });
+function applyControlFrame() {
+  if (controlMode === "scroll") {
+    frame = Math.floor(scrollProgress * (frameCount - 1));
+  }
+  if (controlMode === "mouse") {
+    frame = Math.floor(mouseX * (frameCount - 1));
+  }
+}
+/* ===== PAGE TRANSITION ON LOAD ===== */
 window.addEventListener("load", () => {
   const fromIntro = sessionStorage.getItem("fromIntro");
   const t = document.getElementById("transition");
@@ -72,7 +92,21 @@ window.addEventListener("load", () => {
   }
 });
 
+let controlMode = "auto"; // "auto" | "scroll" | "mouse"
+let scrollProgress = 0;
+let mouseX = 0.5;
+let mouseY = 0.5;
 
+window.addEventListener("scroll", () => {
+  const maxScroll =
+    document.body.scrollHeight - window.innerHeight;
+  scrollProgress = window.scrollY / maxScroll;
+});
+
+window.addEventListener("mousemove", e => {
+  mouseX = e.clientX / window.innerWidth;
+  mouseY = e.clientY / window.innerHeight;
+});
 
 const page = document.body.dataset.page;
 
@@ -82,8 +116,6 @@ let images = [];
 const frameCount = 300;
 let frame = 0;
 let t = 0;
-
-
 function setupCanvas(id) {
   canvas = document.getElementById(id);
   if (!canvas) return false;
@@ -114,8 +146,6 @@ function loadImages(callback) {
 }
 
 /* ---------- RENDER ---------- */
-
-
 function drawImage(options = {}) {
   const img = images[Math.floor(frame)];
   if (!img) return;
@@ -149,6 +179,15 @@ function drawImage(options = {}) {
 
   ctx.globalAlpha = 1;
 }
+function updateFrameByControl() {
+  if (controlMode === "scroll") {
+    frame = Math.floor(scrollProgress * (frameCount - 1));
+  }
+
+  if (controlMode === "mouse") {
+    frame = Math.floor(mouseX * (frameCount - 1));
+  }
+}
 
 /* =====================================================
    PAGE-SPECIFIC LOGIC
@@ -169,163 +208,155 @@ function homeAnimation() {
 function communityAnimation() {
   function loop() {
     t += 0.01;
-    frame = Math.floor((Math.sin(t) * 0.5 + 0.5) * (frameCount - 1));
+
+    // 🌊 Auto breathing frame
+    frame = Math.floor(
+      (Math.sin(t) * 0.5 + 0.5) * (frameCount - 1)
+    );
+
+    // 🖱 Mouse parallax only (not frame)
+    const offsetX = (mouseX - 0.5) * 25;
+    const offsetY = (mouseY - 0.5) * 18;
+
     drawImage({
       alpha: 0.25,
-      x: Math.sin(t * 0.6) * 20,
-      y: Math.cos(t * 0.8) * 10
+      x: Math.sin(t * 0.6) * 20 + offsetX,
+      y: Math.cos(t * 0.8) * 10 + offsetY
     });
+
     requestAnimationFrame(loop);
   }
   loop();
 }
 
+
 /* ---------- ABOUT (CINEMATIC STILLNESS) ---------- */
 function aboutAnimation() {
+  controlMode = "scroll";
+
   function loop() {
-    t += 0.002;
-    frame = Math.floor((Math.sin(t) * 0.5 + 0.5) * (frameCount - 1));
-    drawImage({ alpha: 0.22 });
+    applyControlFrame();
+
+    drawImage({
+      alpha: 0.32,
+      x: Math.sin(t) * 20,
+      y: Math.cos(t) * 14
+    });
+
     requestAnimationFrame(loop);
   }
+  
   loop();
 }
+
+
 
 
 /* ---------- MARKETPLACE (AMBIENT) ---------- */
 function marketplaceAnimation() {
-  function loop() {
-    frame = (frame + 0.15) % frameCount;
-   drawImage({
-  alpha: mood.alpha,
-  x: (Math.random() - 0.5) * mood.shake,
-  y: (Math.random() - 0.5) * mood.shake
-});
-t += 0.01 * mood.speed;
+  let wheelDelta = 0;
 
-    requestAnimationFrame(loop);
-  }
-  loop();
-}
-
-/* ---------- LABS (EXPERIMENTAL) ---------- */
-function labsAnimation() {
-  function loop() {
-    t += 0.02;
-    frame = Math.abs(Math.floor((t * 30 + Math.random() * 40) % frameCount));
-    drawImage({
-      rotate: Math.sin(t) * 0.05
-    });
-    requestAnimationFrame(loop);
-  }
-  loop();
-}
-
-/* ---------- EXPERIENCE (INTENSE) ---------- */
-/* ---------- EXPERIENCE (CINEMATIC FORCE) ---------- */
-function experienceAnimation() {
-  let mouseX = 0.5;
-  let velocity = 0;
-  let targetFrame = 0;
-
-  window.addEventListener("mousemove", e => {
-    mouseX = e.clientX / window.innerWidth;
+  window.addEventListener("wheel", e => {
+    wheelDelta += e.deltaY * 0.0003;
   });
 
   function loop() {
-    t += 0.025;
+    // 🖱 Mouse chooses base frame
+    const mouseFrame = mouseX * (frameCount - 1);
 
-    // 🎯 Target jumps forward aggressively
-    targetFrame += 2.2;
-    if (targetFrame >= frameCount) targetFrame = 0;
+    // 🌀 Wheel momentum
+    wheelDelta *= 0.65;
 
-    // ⚡ Momentum smoothing
-    frame += (targetFrame - frame) * 0.08;
-
-    // 🎥 Camera pressure
-    const shakeX = Math.sin(t * 18) * 4;
-    const shakeY = Math.cos(t * 14) * 3;
-
-    // 🌀 Torque from cursor
-    const rotation = (mouseX - 0.5) * 0.18;
+    frame = mouseFrame + wheelDelta * frameCount;
 
     drawImage({
-      rotate: rotation,
-      x: shakeX,
-      y: shakeY,
+      alpha: mood.alpha,
+      x: (Math.random() - 0.2) * mood.shake,
+      y: (Math.random() - 0.2) * mood.shake
+    });
+
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+
+/* ---------- LABS (EXPERIMENTAL) ---------- */
+function labsAnimation() {
+  controlMode = "scroll";
+
+  function loop() {
+    applyControlFrame();
+
+    drawImage({
+      rotate: (Math.random() - 0.5) * 0.04,
+      alpha: 0.4
+    });
+
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+
+/* ---------- EXPERIENCE (CINEMATIC FORCE) ---------- */
+function experienceAnimation() {
+  controlMode = "mouse";
+
+  function loop() {
+    t += 0.03;
+
+    frame += 0.35; // forward force
+    if (frame >= frameCount) frame = 0;
+
+    drawImage({
+      rotate: (mouseX - 0.5) * 0.25,
+      x: Math.sin(t * 10) * 6,
+      y: Math.cos(t * 8) * 5,
       alpha: 0.6
     });
 
     requestAnimationFrame(loop);
   }
-
   loop();
 }
 
-
-/* =====================================================
-   BOOTSTRAP
-===================================================== */
 /* ---------- UNIVERSE (COSMIC DRIFT) ---------- */
 function universeAnimation() {
-  let driftX = 0;
-  let driftY = 0;
+  controlMode = "scroll";
 
   function loop() {
-    t += 0.004;
+    applyControlFrame();
 
-    // 🔁 Non-linear frame oscillation (not sequential)
-    frame = Math.floor(
-      (Math.sin(t * 0.9) * 0.4 + 0.5) * (frameCount - 1)
-    );
-
-    // 🌫️ Slow spatial drift
-    driftX = Math.sin(t * 0.3) * 30;
-    driftY = Math.cos(t * 0.4) * 18;
-
-    // 🌌 Subtle scale breathing illusion
     drawImage({
       alpha: 0.32,
-      x: driftX,
-      y: driftY
+      x: Math.sin(t) * 20,
+      y: Math.cos(t) * 14
     });
 
     requestAnimationFrame(loop);
   }
-
   loop();
 }
+
 /* ---------- CHARACTERS (IDENTITY DEPTH) ---------- */
 function charactersAnimation() {
-  let mouseX = 0.5;
-  let mouseY = 0.5;
-
-  window.addEventListener("mousemove", e => {
-    mouseX = e.clientX / window.innerWidth;
-    mouseY = e.clientY / window.innerHeight;
-  });
+  controlMode = "mouse";
 
   function loop() {
-    t += 0.01;
-
-    // 🧠 Identity snap (cursor chooses frame)
-    frame = Math.floor(mouseX * (frameCount - 1));
-
-    // 🫧 Breathing offset
-    const driftX = Math.sin(t * 0.8) * 12;
-    const driftY = Math.cos(t * 0.6) * 8;
+    applyControlFrame();
 
     drawImage({
       alpha: 0.45,
-      x: driftX,
-      y: driftY
+      x: (mouseX - 0.5) * 40,
+      y: (mouseY - 0.5) * 30
     });
 
     requestAnimationFrame(loop);
   }
-
   loop();
 }
+
 function profileAnimation() {
   function loop() {
     t += 0.002;
@@ -424,9 +455,13 @@ function setupPageTransitions() {
 
       overlay.classList.add("active");
 
-      setTimeout(() => {
-        window.location.href = url;
-      }, 700);
+// NEW: freeze animation during transition
+cancelAnimationFrame(window.__animLoop);
+
+setTimeout(() => {
+  window.location.href = url;
+}, 700);
+
     });
   });
 

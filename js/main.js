@@ -1,4 +1,4 @@
-/* =====================================================
+ /* =====================================================
    CYBERFICTION – UNIFIED MAIN ENGINE
    Author: Priyanshu Dhama
 ===================================================== */
@@ -56,28 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-/* ===== TOUCH SUPPORT (MOBILE) ===== */
-let touchX = 0.5;
-let touchY = 0.5;
 
-window.addEventListener("touchmove", e => {
-  if (!e.touches[0]) return;
-  touchX = e.touches[0].clientX / window.innerWidth;
-  touchY = e.touches[0].clientY / window.innerHeight;
 
-  // mobile drives mouse vars
-  mouseX = touchX;
-  mouseY = touchY;
-}, { passive: true });
-function applyControlFrame() {
-  if (controlMode === "scroll") {
-    frame = Math.floor(scrollProgress * (frameCount - 1));
-  }
-  if (controlMode === "mouse") {
-    frame = Math.floor(mouseX * (frameCount - 1));
-  }
-}
-/* ===== PAGE TRANSITION ON LOAD ===== */
 window.addEventListener("load", () => {
   const fromIntro = sessionStorage.getItem("fromIntro");
   const t = document.getElementById("transition");
@@ -93,6 +73,7 @@ window.addEventListener("load", () => {
 });
 
 let controlMode = "auto"; // "auto" | "scroll" | "mouse"
+
 let scrollProgress = 0;
 let mouseX = 0.5;
 let mouseY = 0.5;
@@ -116,6 +97,30 @@ let images = [];
 const frameCount = 300;
 let frame = 0;
 let t = 0;
+/* ===== TOUCH SUPPORT (MOBILE) ===== */
+let touchX = 0.5;
+let touchY = 0.5;
+
+window.addEventListener("touchmove", e => {
+  if (!e.touches[0]) return;
+  touchX = e.touches[0].clientX / window.innerWidth;
+  touchY = e.touches[0].clientY / window.innerHeight;
+
+  // mobile drives mouse vars
+  mouseX = touchX;
+  mouseY = touchY;
+}, { passive: true });
+/* ---------- CONTROL FRAME UPDATER ---------- */
+function applyControlFrame() {
+  if (controlMode === "scroll") {
+    frame = Math.floor(scrollProgress * (frameCount - 1));
+  }
+  if (controlMode === "mouse") {
+    frame = Math.floor(mouseX * (frameCount - 1));
+  }
+}
+
+
 function setupCanvas(id) {
   canvas = document.getElementById(id);
   if (!canvas) return false;
@@ -146,6 +151,8 @@ function loadImages(callback) {
 }
 
 /* ---------- RENDER ---------- */
+
+
 function drawImage(options = {}) {
   const img = images[Math.floor(frame)];
   if (!img) return;
@@ -208,47 +215,42 @@ function homeAnimation() {
 function communityAnimation() {
   function loop() {
     t += 0.01;
-
-    // 🌊 Auto breathing frame
-    frame = Math.floor(
-      (Math.sin(t) * 0.5 + 0.5) * (frameCount - 1)
-    );
-
-    // 🖱 Mouse parallax only (not frame)
-    const offsetX = (mouseX - 0.5) * 25;
-    const offsetY = (mouseY - 0.5) * 18;
-
+    frame = Math.floor((Math.sin(t) * 0.5 + 0.5) * (frameCount - 1));
     drawImage({
       alpha: 0.25,
-      x: Math.sin(t * 0.6) * 20 + offsetX,
-      y: Math.cos(t * 0.8) * 10 + offsetY
+      x: Math.sin(t * 0.6) * 20,
+      y: Math.cos(t * 0.8) * 10
     });
-
     requestAnimationFrame(loop);
   }
   loop();
 }
-
 
 /* ---------- ABOUT (CINEMATIC STILLNESS) ---------- */
 function aboutAnimation() {
-  controlMode = "scroll";
+  let wheelDelta = 0;
+
+  window.addEventListener("wheel", e => {
+    wheelDelta += e.deltaY * 0.002;
+  });
 
   function loop() {
-    applyControlFrame();
+    t += 0.002;
 
-    drawImage({
-      alpha: 0.32,
-      x: Math.sin(t) * 20,
-      y: Math.cos(t) * 14
-    });
+    // 🔁 Auto breathing
+    const autoFrame = (Math.sin(t) * 0.5 + 0.5) * (frameCount - 1);
+
+    // 🌀 Wheel influence (decays naturally)
+    wheelDelta *= 0.9;
+
+    frame = autoFrame + wheelDelta * frameCount;
+
+    drawImage({ alpha: 0.22 });
 
     requestAnimationFrame(loop);
   }
-  
   loop();
 }
-
 
 
 
@@ -257,7 +259,7 @@ function marketplaceAnimation() {
   let wheelDelta = 0;
 
   window.addEventListener("wheel", e => {
-    wheelDelta += e.deltaY * 0.0003;
+    wheelDelta += e.deltaY * 0.003;
   });
 
   function loop() {
@@ -265,14 +267,14 @@ function marketplaceAnimation() {
     const mouseFrame = mouseX * (frameCount - 1);
 
     // 🌀 Wheel momentum
-    wheelDelta *= 0.65;
+    wheelDelta *= 0.88;
 
     frame = mouseFrame + wheelDelta * frameCount;
 
     drawImage({
       alpha: mood.alpha,
-      x: (Math.random() - 0.2) * mood.shake,
-      y: (Math.random() - 0.2) * mood.shake
+      x: (Math.random() - 0.5) * mood.shake,
+      y: (Math.random() - 0.5) * mood.shake
     });
 
     requestAnimationFrame(loop);
@@ -299,6 +301,7 @@ function labsAnimation() {
 }
 
 
+/* ---------- EXPERIENCE (INTENSE) ---------- */
 /* ---------- EXPERIENCE (CINEMATIC FORCE) ---------- */
 function experienceAnimation() {
   controlMode = "mouse";
@@ -321,6 +324,9 @@ function experienceAnimation() {
   loop();
 }
 
+/* =====================================================
+   BOOTSTRAP
+===================================================== */
 /* ---------- UNIVERSE (COSMIC DRIFT) ---------- */
 function universeAnimation() {
   controlMode = "scroll";
@@ -455,13 +461,9 @@ function setupPageTransitions() {
 
       overlay.classList.add("active");
 
-// NEW: freeze animation during transition
-cancelAnimationFrame(window.__animLoop);
-
-setTimeout(() => {
-  window.location.href = url;
-}, 700);
-
+      setTimeout(() => {
+        window.location.href = url;
+      }, 700);
     });
   });
 

@@ -1,13 +1,15 @@
 require("dotenv").config();
+require("dotenv").config();
+const connectDB = require("./db");
+
+connectDB();
+
 const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const fs = require("fs");
 const path = require("path"); // 
-
-
-
 /* =======================
    APP SETUP
 ======================= */
